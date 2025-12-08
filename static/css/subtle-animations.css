@@ -1,0 +1,29 @@
+/* Subtle Animations Override - Reduce Canvas Intensity */
+
+/* Reduce particle opacity for subtle effect */
+#particleCanvas {
+    opacity: 0.3 !important;
+}
+
+/* COMPLETELY DISABLE Matrix Rain */
+#matrixCanvas {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.effect-layer {
+    opacity: 0.3 !important;
+}
+
+/* Reduce background effect intensity */
+.scanline-effect,
+.aurora-background,
+.vignette-overlay,
+.noise-texture {
+    opacity: 0.2 !important;
+}
+
+/* DISABLE Meteor Shower */
+.meteor {
+    display: none !important;
+}
