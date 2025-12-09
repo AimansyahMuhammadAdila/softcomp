@@ -6,13 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔥 Optimasi Pakan Sapi - ULTRA MODE 🚀</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+    <!DOCTYPE html>
+    <html lang="id">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>🔥 Optimasi Pakan Sapi - ULTRA MODE 🚀</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
 
 <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <i class="fa-solid fa-cow fa-bounce"
+                style="font-size: 5rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h1>Optimasi Pakan Sapi</h1>
+            <p>Memuat Sistem AI...</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="background-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
@@ -163,8 +185,58 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button id="show-details-btn" class="btn-small" style="margin: 0 auto;">
+                        <i class="fa-solid fa-calculator"></i> Lihat Detail Perhitungan
+                    </button>
+                </div>
             </div>
         </main>
+    </div>
+
+    <!-- Calculation Details Modal -->
+    <div id="calc-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-calculator"></i> Detail Perhitungan</h2>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="calc-section">
+                    <h3>1. Rumus Dasar</h3>
+                    <p>Optimasi ini menggunakan <strong>Algoritma Genetika</strong> untuk mencari kombinasi pakan dengan
+                        biaya termurah namun tetap memenuhi kebutuhan nutrisi.</p>
+                    <div class="formula-box">
+                        <p><strong>Fungsi Objektif (Biaya):</strong></p>
+                        <code>Total Biaya = Σ (Harga_i × Jumlah_i) + Penalti</code>
+                        <p><small>*Penalti diberikan jika nutrisi kurang dari target.</small></p>
+                    </div>
+                </div>
+
+                <div class="calc-section">
+                    <h3>2. Perhitungan Nutrisi</h3>
+                    <div class="formula-box">
+                        <p><strong>Total Protein (Prdd):</strong></p>
+                        <code>Σ (Prdd_i × Jumlah_i) ≥ Target Prdd</code>
+                        <br><br>
+                        <p><strong>Total Martabat Pati (MP):</strong></p>
+                        <code>Σ (MP_i × Jumlah_i) ≥ Target MP</code>
+                    </div>
+                </div>
+
+                <div class="calc-section">
+                    <h3>3. Proses Algoritma Genetika</h3>
+                    <ul class="step-list">
+                        <li><strong>Inisialisasi:</strong> Membuat populasi acak (kombinasi pakan).</li>
+                        <li><strong>Evaluasi:</strong> Menghitung fitness (1 / (1 + Biaya Total)).</li>
+                        <li><strong>Seleksi:</strong> Memilih individu terbaik.</li>
+                        <li><strong>Crossover & Mutasi:</strong> Menghasilkan variasi baru untuk mencari solusi lebih
+                            baik.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

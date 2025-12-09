@@ -6,6 +6,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const advancedToggle = document.getElementById('advanced-settings-toggle');
     const advancedContent = document.getElementById('advanced-settings-content');
 
+    // Splash Screen
+    const splashScreen = document.getElementById('splash-screen');
+    setTimeout(() => {
+        splashScreen.classList.add('fade-out');
+        setTimeout(() => {
+            splashScreen.style.display = 'none';
+        }, 500);
+    }, 2000); // 2 seconds splash
+
+    // Modal Logic
+    const modal = document.getElementById('calc-modal');
+    const showDetailsBtn = document.getElementById('show-details-btn');
+    const closeModalBtn = document.querySelector('.close-modal');
+
+    if (showDetailsBtn) {
+        showDetailsBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+
     // Accordion Toggle
     advancedToggle.addEventListener('click', () => {
         advancedToggle.classList.toggle('active');
