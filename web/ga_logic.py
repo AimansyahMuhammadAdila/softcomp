@@ -89,19 +89,31 @@ class GeneticOptimizer:
         best_chrom = None
         best_fit = float("-inf")
         history = []
+        
+        # Track top solutions
+        top_solutions = []  # Will store (chrom, fitness, totals, cost)
 
         for gen in range(self.max_gen):
             fits = [self.fitness(ind) for ind in population]
+            costs = [self.objective_function(ind) for ind in population]
+            
             gen_best_idx = max(range(len(population)), key=lambda i: fits[i])
             gen_best_chrom = population[gen_best_idx]
             gen_best_fit = fits[gen_best_idx]
+            gen_best_cost = costs[gen_best_idx]
 
             if gen_best_fit > best_fit:
                 best_fit = gen_best_fit
                 best_chrom = gen_best_chrom[:]
 
-            # Optional: Record history for graphing if needed later
-            # history.append({"gen": gen, "fitness": best_fit})
+            # Record generation history
+            avg_fit = sum(fits) / len(fits)
+            history.append({
+                "generation": gen + 1,
+                "best_fitness": gen_best_fit,
+                "avg_fitness": avg_fit,
+                "best_cost": gen_best_cost
+            })
 
             offspring = []
 
@@ -128,9 +140,30 @@ class GeneticOptimizer:
 
             population = [ind for (ind, fit_val) in combined_fits[:self.pop_size]]
 
+        # Get top 5 unique solutions from final population
+        final_population_with_fitness = [
+            (ind, self.fitness(ind), self.decode_chromosome(ind), self.objective_function(ind))
+            for ind in population
+        ]
+        final_population_with_fitness.sort(key=lambda x: x[1], reverse=True)
+        
+        # Take top 5 solutions
+        top_solutions = []
+        for i in range(min(5, len(final_population_with_fitness))):
+            chrom, fit, totals, cost = final_population_with_fitness[i]
+            top_solutions.append({
+                "rank": i + 1,
+                "chromosome": chrom,
+                "fitness": fit,
+                "totals": totals,
+                "cost": cost
+            })
+
         best_totals = self.decode_chromosome(best_chrom)
         return {
             "best_chrom": best_chrom,
             "totals": best_totals,
-            "best_fit": best_fit
+            "best_fit": best_fit,
+            "history": history,
+            "top_solutions": top_solutions
         }

@@ -28,7 +28,7 @@
             <i class="fa-solid fa-cow fa-bounce"
                 style="font-size: 5rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
             <h1>Optimasi Pakan Sapi</h1>
-            <p>Memuat Sistem AI...</p>
+            <p>Memuat Sistem...</p>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
@@ -44,7 +44,7 @@
     <div class="container">
         <header>
             <h1><i class="fa-solid fa-cow fa-bounce" style="--fa-animation-duration: 3s;"></i> Optimasi Pakan Sapi</h1>
-            <p>Powered by Genetic Algorithm AI</p>
+            <p>Powered by Genetic Algorithm</p>
         </header>
 
         <main>
@@ -100,7 +100,7 @@
 
                 <div class="accordion">
                     <div class="accordion-header" id="advanced-settings-toggle">
-                        <span><i class="fa-solid fa-microchip"></i> AI Core Settings (Genetic Algorithm)</span>
+                        <span><i class="fa-solid fa-microchip"></i> Pengaturan Algoritma Genetika</span>
                         <i class="fa-solid fa-chevron-down arrow"></i>
                     </div>
                     <div class="accordion-content" id="advanced-settings-content">
@@ -128,7 +128,7 @@
                 </div>
 
                 <button id="optimize-btn" class="btn-primary">
-                    <span class="btn-text">Jalankan Optimasi AI</span>
+                    <span class="btn-text">Jalankan Optimasi</span>
                     <span class="loader hidden"></span>
                 </button>
             </div>
@@ -140,6 +140,10 @@
                     <div class="result-item">
                         <span class="label">Total Biaya</span>
                         <span class="value highlight" id="total-cost">Rp 0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Total Berat</span>
+                        <span class="value" id="total-weight">0 kg</span>
                     </div>
                     <div class="result-item">
                         <span class="label">Fitness Score</span>
@@ -176,14 +180,42 @@
                             <tr>
                                 <th>Nama Bahan</th>
                                 <th>Jumlah (kg)</th>
+                                <th>% Berat</th>
                                 <th>Harga Satuan</th>
                                 <th>Total Harga</th>
+                                <th>% Biaya</th>
+                                <th>Kontribusi Prdd</th>
+                                <th>Kontribusi MP</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Results will be injected here -->
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Generation History Section -->
+                <h3 style="margin-top: 2rem;"><i class="fa-solid fa-chart-line"></i> Riwayat Evolusi Generasi</h3>
+                <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Generasi</th>
+                                <th>Best Fitness</th>
+                                <th>Avg Fitness</th>
+                                <th>Best Cost (Rp)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- History will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Top 5 Solutions Section -->
+                <h3 style="margin-top: 2rem;"><i class="fa-solid fa-trophy"></i> Top 5 Solusi Alternatif</h3>
+                <div id="top-solutions-container">
+                    <!-- Top solutions will be injected here -->
                 </div>
 
                 <div style="margin-top: 2rem; text-align: center;">

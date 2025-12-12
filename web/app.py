@@ -41,23 +41,78 @@ def optimize():
     
     result = optimizer.run()
     
-    # Format result for frontend
+    # Format best solution composition
     composition = []
+    total_weight = 0
     for i, feed in enumerate(feeds):
+        amount = result['best_chrom'][i]
+        total_weight += amount
         composition.append({
             "name": feed['name'],
-            "amount": round(result['best_chrom'][i], 4),
+            "amount": round(amount, 4),
             "price": feed['price'],
-            "cost": round(result['best_chrom'][i] * feed['price'], 2)
+            "cost": round(amount * feed['price'], 2),
+            "prdd_contribution": round(amount * feed['prdd'], 4),
+            "mp_contribution": round(amount * feed['mp'], 4)
         })
+    
+    # Add percentage contribution
+    for item in composition:
+        item['weight_percentage'] = round((item['amount'] / total_weight * 100) if total_weight > 0 else 0, 2)
+        item['cost_percentage'] = round((item['cost'] / result['totals']['cost'] * 100) if result['totals']['cost'] > 0 else 0, 2)
+    
+    # Format top 5 solutions
+    top_solutions_formatted = []
+    for sol in result['top_solutions']:
+        sol_composition = []
+        for i, feed in enumerate(feeds):
+            amount = sol['chromosome'][i]
+            sol_composition.append({
+                "name": feed['name'],
+                "amount": round(amount, 4),
+                "cost": round(amount * feed['price'], 2)
+            })
         
+        top_solutions_formatted.append({
+            "rank": sol['rank'],
+            "composition": sol_composition,
+            "totals": {
+                "prdd": round(sol['totals']['prdd'], 4),
+                "mp": round(sol['totals']['mp'], 4),
+                "cost": round(sol['totals']['cost'], 2)
+            },
+            "fitness": round(sol['fitness'], 6)
+        })
+    
+    # Format history data
+    history_formatted = []
+    for h in result['history']:
+        history_formatted.append({
+            "generation": h['generation'],
+            "best_fitness": round(h['best_fitness'], 6),
+            "avg_fitness": round(h['avg_fitness'], 6),
+            "best_cost": round(h['best_cost'], 2)
+        })
+    
     response = {
         "composition": composition,
-        "totals": result['totals'],
-        "fitness": result['best_fit']
+        "totals": {
+            "prdd": round(result['totals']['prdd'], 4),
+            "mp": round(result['totals']['mp'], 4),
+            "cost": round(result['totals']['cost'], 2),
+            "weight": round(total_weight, 4)
+        },
+        "fitness": round(result['best_fit'], 6),
+        "history": history_formatted,
+        "top_solutions": top_solutions_formatted,
+        "requirements": {
+            "prdd": required_prdd,
+            "mp": required_mp
+        }
     }
     
     return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
